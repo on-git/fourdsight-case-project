@@ -35,6 +35,13 @@ export class AppComponent {
     });
   }
 
+  goToHome() {
+    this.router.navigate(['../home'], {
+      relativeTo: this.route,
+      skipLocationChange: true,
+    });
+  }
+
   logoutUser() {
     this.router.navigate([''], {
       relativeTo: this.route,
