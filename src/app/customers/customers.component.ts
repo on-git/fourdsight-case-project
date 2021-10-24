@@ -8,33 +8,29 @@ import { StorageService } from '../storage.service';
   styleUrls: ['./customers.component.scss'],
 })
 export class CustomersComponent implements OnInit {
-  users: any;
   displayMode = true;
   customerValue = '';
   storageData: any;
   roles = [{ name: '' }];
   invalidUsername = false;
+  loggedInUser: any;
+  users: any;
+  showForm: boolean = false;
+  angForm2: any;
   constructor(private _storageService: StorageService) {}
 
   ngOnInit(): void {
     this.storageData = this._storageService.loadInfo('username');
     this._storageService.loggedIn.subscribe((data) => {
+      this.loggedInUser = data;
+      this.updateList();
       if (data === 'superadmin') {
-        this.users = this.storageData.users.filter(function (x: any) {
-          return x.role !== 'superadmin';
-        });
         this.roles = [{ name: 'admin' }, { name: 'customer' }];
       } else {
-        this.users = this.storageData.users.filter(function (x: any) {
-          return x.role !== 'superadmin' && x.role !== 'admin';
-        });
         this.roles = [{ name: 'customer' }];
       }
     });
   }
-
-  showForm: boolean = false;
-  angForm2: any;
 
   editItem(user: any) {
     if (!this.showForm) {
@@ -45,7 +41,7 @@ export class CustomersComponent implements OnInit {
       username: new FormControl(user.username),
       role: new FormControl(
         this.roles.filter(function (r) {
-          return r.name == user.role;
+          return r.name === user.role;
         })[0]
       ),
     });
@@ -57,36 +53,46 @@ export class CustomersComponent implements OnInit {
     let users = data.users.filter(function (user: any) {
       return user.id === formValue.id;
     });
-    let updatedUsers: any[];
     if (formValue.username.trim().length === 0) {
       this.invalidUsername = true;
     } else {
       if (users.length === 0) {
-        updatedUsers = [
-          ...data.users,
-          {
-            id: data.users[data.users.length - 1].id + 1,
-            username: formValue.username,
-            role: formValue.role.name,
-          },
-        ];
+        users = this.newItemSet(data, formValue);
       } else {
-        updatedUsers = data.users.map(function (user: any) {
-          if (user.id === formValue.id) {
-            user.username = formValue.username;
-            user.role = formValue.role.name;
-          }
-          return user;
-        });
+        users = this.existingItemSet(data, formValue);
       }
-      users = updatedUsers;
       this._storageService.setInfo('username', { users });
       this.showForm = !this.showForm;
       this.updateList();
     }
   }
 
-  addNewItem() {
+  newItemSet(data: any, formValue: any) {
+    let updatedUsers = [
+      ...data.users,
+      {
+        id: data.users[data.users.length - 1].id + 1,
+        username: formValue.username,
+        role: formValue.role.name,
+      },
+    ];
+
+    return updatedUsers;
+  }
+
+  existingItemSet(data: any, formValue: any) {
+    let updatedUsers = data.users.map(function (user: any) {
+      if (user.id === formValue.id) {
+        user.username = formValue.username;
+        user.role = formValue.role.name;
+      }
+      return user;
+    });
+
+    return updatedUsers;
+  }
+
+  addNewItemToggle() {
     this.showForm = !this.showForm;
     this.angForm2 = new FormGroup({
       id: new FormControl(-1),
@@ -100,30 +106,21 @@ export class CustomersComponent implements OnInit {
 
   deleteItem(user: any) {
     let data = this._storageService.loadInfo('username');
-    let userInfo = data.users.filter(function (u: any) {
+    let users = data.users.filter(function (u: any) {
       return u.id !== user.id;
     });
-    let users = userInfo;
     this._storageService.setInfo('username', { users });
     this.updateList();
   }
 
   updateList() {
-    this._storageService.loggedIn.subscribe((data) => {
-      if (data === 'superadmin') {
-        this.users = this._storageService
-          .loadInfo('username')
-          .users.filter(function (x: any) {
-            return x.role !== 'superadmin';
-          });
-      } else {
-        this.users = this._storageService
-          .loadInfo('username')
-          .users.filter(function (x: any) {
-            return x.role !== 'superadmin' && x.role !== 'admin';
-          });
-      }
-    });
+    this.users = this._storageService
+      .loadInfo('username')
+      .users.filter(this.filterRole, this.loggedInUser);
+  }
+
+  filterRole(item: any) {
+    return item.role !== 'superadmin' && item.role !== this;
   }
 
   hideWarning() {
