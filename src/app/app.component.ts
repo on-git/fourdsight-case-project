@@ -17,13 +17,15 @@ export class AppComponent {
   ) {}
 
   ngOnInit(): void {
-    this._storageService.setInfo('username', {
-      users: [
-        { id: 1, username: 'superadmin', role: 'superadmin' },
-        { id: 2, username: 'admin', role: 'admin' },
-        { id: 3, username: 'customer1', role: 'customer' },
-      ],
-    });
+    if (this._storageService.loadInfo('username').length === 0) {
+      this._storageService.setInfo('username', {
+        users: [
+          { id: 1, username: 'superadmin', role: 'superadmin' },
+          { id: 2, username: 'admin', role: 'admin' },
+          { id: 3, username: 'customer1', role: 'customer' },
+        ],
+      });
+    }
     this._storageService.loggedIn.subscribe((data) => {
       if (data !== 'noone') {
         this.loggedIn = true;
