@@ -1,89 +1,98 @@
 @import "./animations.scss";
 
-section {
-  position: relative;
-  width: 100%;
-  min-height: calc(100vh - 106px);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background-color: #87cefa;
-}
+.layoutG {
+  height: 100%;
+  display: grid;
+  grid-template-rows: 80px 1fr;
 
-header {
-  background-color: #6495ed;
-  position: relative;
-  top: 0;
-  width: 100%;
-  padding: 30px 100px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-
-  .logo {
-    animation-name: fadeIn;
-    animation-duration: 1.5s;
-    position: relative;
-    color: black;
-    font-size: 1.9rem;
-    text-decoration: none;
-    text-transform: uppercase;
-    font-weight: 800;
-    letter-spacing: 1px;
+  section {
+    width: 100%;
+    grid-row: 2 / -1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #87cefa;
   }
 
-  .navigation {
-    animation-name: fadeIn;
-    animation-duration: 1.5s;
-    a {
+  header {
+    position: fixed;
+    grid-row: 1 / 2;
+    background-color: #6495ed;
+    height: 80px;
+    width: 100%;
+    padding: 30px 100px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .logo {
+      animation-name: fadeIn;
+      animation-duration: 1.5s;
+      position: relative;
       color: black;
+      font-size: 1.9rem;
       text-decoration: none;
-      font-weight: 500;
+      text-transform: uppercase;
+      font-weight: 800;
       letter-spacing: 1px;
-      padding: 2px 15px;
-      border-radius: 20px;
-      transition: 0.3s;
-      transition-property: background-color;
+    }
 
-      &:hover {
-        background-color: white;
-      }
+    .navigation {
+      animation-name: fadeIn;
+      animation-duration: 1.5s;
+      a {
+        color: black;
+        text-decoration: none;
+        font-weight: 500;
+        letter-spacing: 1px;
+        padding: 2px 15px;
+        border-radius: 20px;
+        transition: 0.3s;
+        transition-property: background-color;
 
-      .log-out {
-        margin-right: 10px;
+        &:hover {
+          background-color: white;
+        }
+
+        .log-out {
+          margin-right: 10px;
+        }
       }
     }
   }
 }
 
 @media (max-width: 960px) {
-  section {
-    min-height: calc(100vh - 95px);
-  }
-  header {
-    .logo {
-      font-size: 1.2rem;
+  .layoutG {
+    header {
+      .logo {
+        font-size: 1.2rem;
+      }
     }
   }
 }
 
 @media (max-width: 560px) {
-  header {
-    padding: 30px;
+  .layoutG {
+    header {
+      padding: 30px;
 
-    .logo {
-      font-size: 1rem;
+      .logo {
+        font-size: 1rem;
+      }
     }
   }
 }
 
 @media (max-width: 360px) {
-  header {
-    .navigation {
-      a {
-        .log-out {
-          display: none;
+  .layoutG {
+    header {
+      .navigation {
+        a {
+          .log-out {
+            display: none;
+          }
         }
       }
     }

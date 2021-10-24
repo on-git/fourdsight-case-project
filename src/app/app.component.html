@@ -1,16 +1,18 @@
-<header>
-  <h2>
-    <a class="logo" href="javascript:void(0)" (click)="goToHome()"
-      >4DSight Case</a
-    >
-  </h2>
-  <div class="navigation">
-    <a *ngIf="loggedIn" href="javascript:void(0)" (click)="logoutUser()">
-      <span class="log-out">Log Out</span>
-      <i class="fas fa-sign-out-alt"></i>
-    </a>
-  </div>
-</header>
-<section>
-  <router-outlet></router-outlet>
-</section>
+<div class="layoutG">
+  <header>
+    <h2>
+      <a class="logo" href="javascript:void(0)" (click)="goToHome()"
+        >4DSight Case</a
+      >
+    </h2>
+    <div class="navigation">
+      <a *ngIf="loggedIn" href="javascript:void(0)" (click)="logoutUser()">
+        <span class="log-out">Log Out</span>
+        <i class="fas fa-sign-out-alt"></i>
+      </a>
+    </div>
+  </header>
+  <section>
+    <router-outlet></router-outlet>
+  </section>
+</div>
