@@ -1,3 +1,6 @@
+@import "../animations.scss";
+@import "../buttons.scss";
+
 .recentCustomers {
   animation-name: slideInFromLeft, fadeIn;
   animation-duration: 1s;
@@ -8,7 +11,7 @@
   .cardHeader {
     min-width: 650px;
     h2 {
-      font-size: 35px;
+      font-size: 2.2rem;
       text-transform: uppercase;
       font-weight: 800;
       letter-spacing: 2px;
@@ -17,13 +20,9 @@
   }
 
   .add-btn {
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    background-color: #6495ed;
-    color: white;
-    padding: 10px;
+    @extend .all-btn;
     margin-bottom: 10px;
+    padding: 10px;
   }
 
   .update-item {
@@ -34,7 +33,7 @@
     margin-bottom: 20px;
 
     .uname-label {
-      font-size: 16px;
+      font-size: 1rem;
       font-weight: 500;
       margin-right: 10px;
     }
@@ -46,12 +45,9 @@
     }
 
     .done-btn {
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      background-color: #6495ed;
-      color: white;
+      @extend .add-btn;
       padding: 10px;
+      margin: 0;
     }
   }
 
@@ -67,12 +63,12 @@
         align-items: center;
 
         h4 {
-          font-size: 16px;
+          font-size: 1rem;
           font-weight: 500;
           line-height: 1.2em;
 
           span {
-            font-size: 14px;
+            font-size: 0.9rem;
             color: gray;
           }
         }
@@ -83,20 +79,18 @@
           justify-content: space-evenly;
 
           .edit-btn {
+            @extend .add-btn;
             background-color: rgb(252, 252, 80);
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
+            color: black;
             padding: 15px;
+            margin: 0;
           }
 
           .delete-btn {
+            @extend .add-btn;
             background-color: rgb(250, 35, 35);
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
             padding: 15px;
+            margin: 0;
           }
         }
       }
@@ -110,7 +104,7 @@
     .cardHeader {
       min-width: 400px;
       h2 {
-        font-size: 30px;
+        font-size: 1.9rem;
         line-height: 50px;
       }
     }
@@ -119,10 +113,10 @@
       tr {
         td {
           h4 {
-            font-size: 14px;
+            font-size: 0.9rem;
 
             span {
-              font-size: 12px;
+              font-size: 0.8rem;
             }
           }
         }
@@ -138,7 +132,7 @@
     .cardHeader {
       min-width: 200px;
       h2 {
-        font-size: 25px;
+        font-size: 1.5rem;
         line-height: 40px;
       }
     }
@@ -165,10 +159,15 @@
 
 @media (max-width: 360px) {
   .recentCustomers {
+    .update-item {
+      .uname {
+        max-width: 150px;
+      }
+    }
     .cardHeader {
       min-width: 0;
       h2 {
-        font-size: 15px;
+        font-size: 1rem;
         line-height: 30px;
       }
     }
@@ -186,10 +185,10 @@
       tr {
         td {
           h4 {
-            font-size: 12px;
+            font-size: 0.9rem;
 
             span {
-              font-size: 10px;
+              font-size: 0.8rem;
             }
           }
           .btns {
@@ -205,23 +204,5 @@
         }
       }
     }
-  }
-}
-
-@keyframes slideInFromLeft {
-  0% {
-    transform: translateX(-50%);
-  }
-  100% {
-    transform: translateX(0);
-  }
-}
-
-@keyframes fadeIn {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
   }
 }

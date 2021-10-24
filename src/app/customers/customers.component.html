@@ -16,32 +16,18 @@
   <table>
     <tr *ngFor="let user of users; let i = index">
       <td>
-        <ng-template [ngIf]="displayMode" [ngIfElse]="editMode">
-          <h4>
-            {{ user.username }}<br /><span>Role: {{ user.role }}</span>
-          </h4>
-          <div class="btns">
-            <button class="edit-btn" (click)="editItem(user)">
-              <i class="fas fa-edit"></i>
-            </button>
-            <button class="delete-btn" (click)="deleteItem(user)">
-              <i class="fas fa-trash-alt"></i>
-            </button>
-          </div>
-        </ng-template>
+        <h4>
+          {{ user.username }}<br /><span>Role: {{ user.role }}</span>
+        </h4>
+        <div class="btns">
+          <button class="edit-btn" (click)="editItem(user)">
+            <i class="fas fa-edit"></i>
+          </button>
+          <button class="delete-btn" (click)="deleteItem(user)">
+            <i class="fas fa-trash-alt"></i>
+          </button>
+        </div>
       </td>
     </tr>
   </table>
 </div>
-
-<ng-template #editMode>
-  <input type="text" [value]="customerValue" />
-  <div class="btns">
-    <button class="edit-btn">
-      <i class="fas fa-check-circle"></i>
-    </button>
-    <button class="delete-btn">
-      <i class="fas fa-window-close"></i>
-    </button>
-  </div>
-</ng-template>

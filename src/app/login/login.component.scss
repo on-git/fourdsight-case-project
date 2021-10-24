@@ -1,3 +1,6 @@
+@import "../animations.scss";
+@import "../buttons.scss";
+
 .container {
   animation-name: slideInFromLeft, fadeIn;
   animation-duration: 1s;
@@ -14,7 +17,7 @@
     flex-direction: column;
 
     .uname-label {
-      font-size: 16px;
+      font-size: 1rem;
       font-weight: 500;
       margin-right: 10px;
     }
@@ -26,31 +29,9 @@
     }
 
     .login-btn {
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      background-color: #6495ed;
-      color: white;
-      padding: 10px;
+      @extend .all-btn;
       margin-top: 20px;
+      padding: 10px;
     }
-  }
-}
-
-@keyframes slideInFromLeft {
-  0% {
-    transform: translateX(-50%);
-  }
-  100% {
-    transform: translateX(0);
-  }
-}
-
-@keyframes fadeIn {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
   }
 }

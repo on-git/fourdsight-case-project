@@ -1,3 +1,5 @@
+@import "./animations.scss";
+
 section {
   position: relative;
   width: 100%;
@@ -24,7 +26,7 @@ header {
     animation-duration: 1.5s;
     position: relative;
     color: black;
-    font-size: 30px;
+    font-size: 1.9rem;
     text-decoration: none;
     text-transform: uppercase;
     font-weight: 800;
@@ -61,7 +63,7 @@ header {
   }
   header {
     .logo {
-      font-size: 20px;
+      font-size: 1.2rem;
     }
   }
 }
@@ -71,7 +73,7 @@ header {
     padding: 30px;
 
     .logo {
-      font-size: 15px;
+      font-size: 1rem;
     }
   }
 }
@@ -85,23 +87,5 @@ header {
         }
       }
     }
-  }
-}
-
-@keyframes slideInFromLeft {
-  0% {
-    transform: translateX(-50%);
-  }
-  100% {
-    transform: translateX(0);
-  }
-}
-
-@keyframes fadeIn {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
   }
 }
