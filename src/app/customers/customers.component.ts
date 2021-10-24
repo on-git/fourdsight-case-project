@@ -13,6 +13,7 @@ export class CustomersComponent implements OnInit {
   storageData: any;
   roles = [{ name: '' }];
   invalidUsername = false;
+  userExist = false;
   loggedInUser: any;
   users: any;
   showForm: boolean = false;
@@ -50,21 +51,33 @@ export class CustomersComponent implements OnInit {
   updateInfo() {
     let data = this._storageService.loadInfo('username');
     const formValue = this.angForm2.value;
-    let users = data.users.filter(function (user: any) {
-      return user.id === formValue.id;
-    });
-    if (formValue.username.trim().length === 0) {
-      this.invalidUsername = true;
+    if (this.isUsernameExist(formValue.username, data)) {
+      this.userExist = true;
     } else {
-      if (users.length === 0) {
-        users = this.newItemSet(data, formValue);
+      let users = data.users.filter(function (user: any) {
+        return user.id === formValue.id;
+      });
+      if (formValue.username.trim().length === 0) {
+        this.invalidUsername = true;
       } else {
-        users = this.existingItemSet(data, formValue);
+        if (users.length === 0) {
+          users = this.newItemSet(data, formValue);
+        } else {
+          users = this.existingItemSet(data, formValue);
+        }
+        this._storageService.setInfo('username', { users });
+        this.showForm = !this.showForm;
+        this.updateList();
       }
-      this._storageService.setInfo('username', { users });
-      this.showForm = !this.showForm;
-      this.updateList();
     }
+  }
+
+  isUsernameExist(uName: string, data: any) {
+    let users = data.users.filter(function (user: any) {
+      return user.username === uName;
+    });
+    if (users.length > 0) return true;
+    else return false;
   }
 
   newItemSet(data: any, formValue: any) {
@@ -102,6 +115,7 @@ export class CustomersComponent implements OnInit {
     if (this.invalidUsername) {
       this.invalidUsername = false;
     }
+    if (this.userExist) this.userExist = false;
   }
 
   deleteItem(user: any) {
@@ -124,6 +138,7 @@ export class CustomersComponent implements OnInit {
   }
 
   hideWarning() {
-    this.invalidUsername = false;
+    if (this.invalidUsername) this.invalidUsername = false;
+    if (this.userExist) this.userExist = false;
   }
 }

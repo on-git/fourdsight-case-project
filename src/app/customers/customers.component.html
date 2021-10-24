@@ -15,6 +15,7 @@
         maxlength="10"
       />
       <p *ngIf="invalidUsername">Username cannot be empty!</p>
+      <p *ngIf="userExist">Username already exist!</p>
       <label class="uname-label">Role:</label>
       <select class="uname" formControlName="role">
         <option *ngFor="let role of roles" [ngValue]="role" value="role.name">
