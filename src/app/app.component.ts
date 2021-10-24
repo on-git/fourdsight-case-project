@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 import { StorageService } from './storage.service';
 
@@ -9,7 +10,11 @@ import { StorageService } from './storage.service';
 })
 export class AppComponent {
   loggedIn: any;
-  constructor(private _storageService: StorageService) {}
+  constructor(
+    private _storageService: StorageService,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {}
 
   ngOnInit(): void {
     this._storageService.setInfo('username', {
@@ -25,6 +30,13 @@ export class AppComponent {
       } else {
         this.loggedIn = false;
       }
+    });
+  }
+
+  logoutUser() {
+    this.router.navigate([''], {
+      relativeTo: this.route,
+      skipLocationChange: true,
     });
   }
 }

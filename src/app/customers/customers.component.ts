@@ -93,6 +93,9 @@ export class CustomersComponent implements OnInit {
       username: new FormControl(''),
       role: new FormControl(this.roles[0]),
     });
+    if (this.invalidUsername) {
+      this.invalidUsername = false;
+    }
   }
 
   deleteItem(user: any) {

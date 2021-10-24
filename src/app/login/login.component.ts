@@ -36,8 +36,9 @@ export class LoginComponent implements OnInit {
     });
     if (user.length > 0) {
       this._storageService.loggedIn.next(user[0].role);
-      this.router.navigate([`../home`], {
+      this.router.navigate(['../home'], {
         relativeTo: this.route,
+        skipLocationChange: true,
       });
     } else {
       this.invalidUsername = true;

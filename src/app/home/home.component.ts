@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { StorageService } from '../storage.service';
 
 @Component({
@@ -8,7 +9,11 @@ import { StorageService } from '../storage.service';
 })
 export class HomeComponent implements OnInit {
   showCustomers = false;
-  constructor(private _storageService: StorageService) {}
+  constructor(
+    private _storageService: StorageService,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {}
 
   ngOnInit(): void {
     this._storageService.loggedIn.subscribe((data) => {
@@ -17,6 +22,13 @@ export class HomeComponent implements OnInit {
       } else {
         this.showCustomers = false;
       }
+    });
+  }
+
+  goToUsers() {
+    this.router.navigate(['../customers'], {
+      relativeTo: this.route,
+      skipLocationChange: true,
     });
   }
 }
