@@ -17,7 +17,7 @@ export class AppComponent {
   ) {}
 
   ngOnInit(): void {
-    if (this._storageService.loadInfo('username').length === 0) {
+    if (this._storageService.loadInfo('username') === null) {
       this._storageService.setInfo('username', {
         users: [
           { id: 1, username: 'superadmin', role: 'superadmin' },
