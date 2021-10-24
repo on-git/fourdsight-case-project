@@ -1,0 +1,16 @@
+<header>
+  <h2>
+    <a routerLink="/home" routerLinkActive="active" class="logo"
+      >4DSight Case</a
+    >
+  </h2>
+  <div class="navigation">
+    <a *ngIf="loggedIn" routerLink="" routerLinkActive="active">
+      <span class="log-out">Log Out</span>
+      <i class="fas fa-sign-out-alt"></i>
+    </a>
+  </div>
+</header>
+<section>
+  <router-outlet></router-outlet>
+</section>

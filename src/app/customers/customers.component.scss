@@ -1,0 +1,227 @@
+.recentCustomers {
+  animation-name: slideInFromLeft, fadeIn;
+  animation-duration: 1s;
+  animation-timing-function: ease-out;
+  max-width: 650px;
+  margin: 60px 100px;
+
+  .cardHeader {
+    min-width: 650px;
+    h2 {
+      font-size: 35px;
+      text-transform: uppercase;
+      font-weight: 800;
+      letter-spacing: 2px;
+      margin-bottom: 30px;
+    }
+  }
+
+  .add-btn {
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #6495ed;
+    color: white;
+    padding: 10px;
+    margin-bottom: 10px;
+  }
+
+  .update-item {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+
+    .uname-label {
+      font-size: 16px;
+      font-weight: 500;
+      margin-right: 10px;
+    }
+
+    .uname {
+      padding: 5px 10px;
+      border-radius: 5px;
+      border: 1px solid gray;
+    }
+
+    .done-btn {
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      background-color: #6495ed;
+      color: white;
+      padding: 10px;
+    }
+  }
+
+  table {
+    width: 100%;
+    tr {
+      background-color: white;
+
+      td {
+        padding: 12px 10px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        h4 {
+          font-size: 16px;
+          font-weight: 500;
+          line-height: 1.2em;
+
+          span {
+            font-size: 14px;
+            color: gray;
+          }
+        }
+
+        .btns {
+          display: flex;
+          min-width: 100px;
+          justify-content: space-evenly;
+
+          .edit-btn {
+            background-color: rgb(252, 252, 80);
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            padding: 15px;
+          }
+
+          .delete-btn {
+            background-color: rgb(250, 35, 35);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            padding: 15px;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 960px) {
+  .recentCustomers {
+    margin: 75px;
+    .cardHeader {
+      min-width: 400px;
+      h2 {
+        font-size: 30px;
+        line-height: 50px;
+      }
+    }
+
+    table {
+      tr {
+        td {
+          h4 {
+            font-size: 14px;
+
+            span {
+              font-size: 12px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 560px) {
+  .recentCustomers {
+    margin: 60px;
+
+    .cardHeader {
+      min-width: 200px;
+      h2 {
+        font-size: 25px;
+        line-height: 40px;
+      }
+    }
+
+    table {
+      tr {
+        td {
+          .btns {
+            min-width: 0;
+            .edit-btn {
+              padding: 10px;
+              margin-right: 5px;
+            }
+
+            .delete-btn {
+              padding: 10px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 360px) {
+  .recentCustomers {
+    .cardHeader {
+      min-width: 0;
+      h2 {
+        font-size: 15px;
+        line-height: 30px;
+      }
+    }
+
+    .update-item {
+      flex-direction: column;
+      align-items: flex-start;
+
+      .done-btn {
+        margin-top: 10px;
+      }
+    }
+
+    table {
+      tr {
+        td {
+          h4 {
+            font-size: 12px;
+
+            span {
+              font-size: 10px;
+            }
+          }
+          .btns {
+            min-width: 0;
+            .edit-btn {
+              padding: 5px;
+            }
+
+            .delete-btn {
+              padding: 5px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@keyframes slideInFromLeft {
+  0% {
+    transform: translateX(-50%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}

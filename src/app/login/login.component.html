@@ -1,0 +1,7 @@
+<div class="container">
+  <form class="login-form" [formGroup]="angForm" (ngSubmit)="checkInfo()">
+    <label class="uname-label">Username:</label>
+    <input class="uname" formControlName="username" type="text" />
+    <button class="login-btn" type="submit">Login</button>
+  </form>
+</div>
