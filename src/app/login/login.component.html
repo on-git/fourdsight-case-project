@@ -1,7 +1,14 @@
 <div class="container">
   <form class="login-form" [formGroup]="angForm" (ngSubmit)="checkInfo()">
     <label class="uname-label">Username:</label>
-    <input class="uname" formControlName="username" type="text" />
+    <input
+      class="uname"
+      formControlName="username"
+      type="text"
+      (input)="hideWarning()"
+      maxlength="10"
+    />
+    <span *ngIf="invalidUsername">Username is not correct!</span>
     <button class="login-btn" type="submit">Login</button>
   </form>
 </div>

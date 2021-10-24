@@ -27,9 +27,9 @@
 
   .update-item {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-start;
     margin-bottom: 20px;
 
     .uname-label {
@@ -44,10 +44,14 @@
       border: 1px solid gray;
     }
 
+    p {
+      color: red;
+    }
+
     .done-btn {
       @extend .add-btn;
       padding: 10px;
-      margin: 0;
+      margin-top: 10px;
     }
   }
 
@@ -162,6 +166,10 @@
     .update-item {
       .uname {
         max-width: 150px;
+      }
+
+      p {
+        font-size: 0.7rem;
       }
     }
     .cardHeader {

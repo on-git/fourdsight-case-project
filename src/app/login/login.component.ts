@@ -26,6 +26,7 @@ export class LoginComponent implements OnInit {
   angForm = new FormGroup({
     username: new FormControl(''),
   });
+  invalidUsername = false;
 
   checkInfo() {
     const { username } = this.angForm.value;
@@ -39,7 +40,7 @@ export class LoginComponent implements OnInit {
         relativeTo: this.route,
       });
     } else {
-      console.log('hata');
+      this.invalidUsername = true;
     }
   }
 
@@ -49,5 +50,9 @@ export class LoginComponent implements OnInit {
 
   clearAll() {
     this._storageService.clearAllLocalStorage();
+  }
+
+  hideWarning() {
+    this.invalidUsername = false;
   }
 }

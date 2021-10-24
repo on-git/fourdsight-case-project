@@ -6,10 +6,21 @@
   <div *ngIf="showForm" class="container">
     <form class="update-item" [formGroup]="angForm2" (ngSubmit)="updateInfo()">
       <input type="number" formControlName="id" name="userId" hidden />
-      <div>
-        <label class="uname-label">Username:</label>
-        <input class="uname" formControlName="username" type="text" />
-      </div>
+      <label class="uname-label">Username:</label>
+      <input
+        class="uname"
+        formControlName="username"
+        type="text"
+        (input)="hideWarning()"
+        maxlength="10"
+      />
+      <p *ngIf="invalidUsername">Username cannot be empty!</p>
+      <label class="uname-label">Role:</label>
+      <select class="uname" formControlName="role">
+        <option *ngFor="let role of roles" [ngValue]="role" value="role.name">
+          {{ role.name }}
+        </option>
+      </select>
       <button class="done-btn">Submit</button>
     </form>
   </div>

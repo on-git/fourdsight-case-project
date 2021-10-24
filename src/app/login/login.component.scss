@@ -28,6 +28,11 @@
       border: 1px solid gray;
     }
 
+    span {
+      color: red;
+      font-size: 0.8rem;
+    }
+
     .login-btn {
       @extend .all-btn;
       margin-top: 20px;

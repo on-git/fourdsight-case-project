@@ -12,6 +12,8 @@ export class CustomersComponent implements OnInit {
   displayMode = true;
   customerValue = '';
   storageData: any;
+  roles = [{ name: '' }];
+  invalidUsername = false;
   constructor(private _storageService: StorageService) {}
 
   ngOnInit(): void {
@@ -21,10 +23,12 @@ export class CustomersComponent implements OnInit {
         this.users = this.storageData.users.filter(function (x: any) {
           return x.role !== 'superadmin';
         });
+        this.roles = [{ name: 'admin' }, { name: 'customer' }];
       } else {
         this.users = this.storageData.users.filter(function (x: any) {
           return x.role !== 'superadmin' && x.role !== 'admin';
         });
+        this.roles = [{ name: 'customer' }];
       }
     });
   }
@@ -39,6 +43,11 @@ export class CustomersComponent implements OnInit {
     this.angForm2 = new FormGroup({
       id: new FormControl(user.id),
       username: new FormControl(user.username),
+      role: new FormControl(
+        this.roles.filter(function (r) {
+          return r.name == user.role;
+        })[0]
+      ),
     });
   }
 
@@ -49,41 +58,32 @@ export class CustomersComponent implements OnInit {
       return user.id === formValue.id;
     });
     let updatedUsers: any[];
-    if (users.length === 0) {
-      updatedUsers = [
-        ...data.users,
-        {
-          id: data.users[data.users.length - 1].id + 1,
-          username: formValue.username,
-          role: 'customer',
-        },
-      ];
+    if (formValue.username.trim().length === 0) {
+      this.invalidUsername = true;
     } else {
-      updatedUsers = data.users.map(function (user: any) {
-        if (user.id === formValue.id) {
-          user.username = formValue.username;
-        }
-        return user;
-      });
-    }
-    users = updatedUsers;
-    this._storageService.setInfo('username', { users });
-    this.showForm = !this.showForm;
-    this._storageService.loggedIn.subscribe((data) => {
-      if (data === 'superadmin') {
-        this.users = this._storageService
-          .loadInfo('username')
-          .users.filter(function (x: any) {
-            return x.role !== 'superadmin';
-          });
+      if (users.length === 0) {
+        updatedUsers = [
+          ...data.users,
+          {
+            id: data.users[data.users.length - 1].id + 1,
+            username: formValue.username,
+            role: formValue.role.name,
+          },
+        ];
       } else {
-        this.users = this._storageService
-          .loadInfo('username')
-          .users.filter(function (x: any) {
-            return x.role !== 'superadmin' && x.role !== 'admin';
-          });
+        updatedUsers = data.users.map(function (user: any) {
+          if (user.id === formValue.id) {
+            user.username = formValue.username;
+            user.role = formValue.role.name;
+          }
+          return user;
+        });
       }
-    });
+      users = updatedUsers;
+      this._storageService.setInfo('username', { users });
+      this.showForm = !this.showForm;
+      this.updateList();
+    }
   }
 
   addNewItem() {
@@ -91,6 +91,7 @@ export class CustomersComponent implements OnInit {
     this.angForm2 = new FormGroup({
       id: new FormControl(-1),
       username: new FormControl(''),
+      role: new FormControl(this.roles[0]),
     });
   }
 
@@ -101,6 +102,10 @@ export class CustomersComponent implements OnInit {
     });
     let users = userInfo;
     this._storageService.setInfo('username', { users });
+    this.updateList();
+  }
+
+  updateList() {
     this._storageService.loggedIn.subscribe((data) => {
       if (data === 'superadmin') {
         this.users = this._storageService
@@ -116,5 +121,9 @@ export class CustomersComponent implements OnInit {
           });
       }
     });
+  }
+
+  hideWarning() {
+    this.invalidUsername = false;
   }
 }
